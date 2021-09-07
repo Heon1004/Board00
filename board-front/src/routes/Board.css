@@ -1,0 +1,80 @@
+.loader {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 300;
+}
+.loader-text{
+    font-size: 2em;
+    font-weight: bold;
+}
+.page-title {
+    margin-bottom: 60px;
+}
+.page-title h3 {
+    font-size: 28px;
+    color: #333333;
+    font-weight: 400;
+    text-align: center;
+}
+
+#board-list {
+    width: 80%;
+    margin: 0 auto;
+}
+table {
+    width: 100%;
+}
+thead th{
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 16px;
+    background-color: whitesmoke;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    color: #333;
+    font-weight: bold;
+    line-height: 1.4;
+}
+.header_num{
+    width: 10%;
+    padding: 0;
+}
+.header_title{
+    width: 40%;
+
+}
+.header_writer{
+    width: 20%;
+}
+.header_date{
+    width: 20%;
+}
+.header_hit{
+    width: 15%;
+}
+
+
+/* reset */
+
+* {
+    list-style: none;
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.write_btn{
+    display: inline;
+    background-color: black;
+}
+
+.write_btn a button{
+    width: 100px;
+    float: right;
+}
+
+

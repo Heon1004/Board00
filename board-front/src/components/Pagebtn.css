@@ -1,0 +1,31 @@
+ul{
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+ul > a {
+    display: inline-block;
+    margin: 10px 0 0 0;
+    padding: 0 10px;
+    border: 1px solid #d9d9d9;
+}
+
+li{
+    display: inline-block;
+    margin: 10px 0 0 0;
+    padding: 0 10px;
+    border: 1px solid #d9d9d9;
+}
+
+.page.active{
+    background-color: slateblue;
+    
+}
+.page.active a{
+    color: white;
+}
+
+li a{
+    width: 100%;
+}

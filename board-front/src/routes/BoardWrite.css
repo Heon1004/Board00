@@ -1,0 +1,38 @@
+.write_box {
+    width: 60%;
+    margin: 0 auto;
+    text-align: center;
+}
+.title, .content{
+    display: block;
+    width: 100%;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+
+.title_label, .content_label{
+    display: block;
+    position: relative;
+    color: gray;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#title_item{
+    outline: none;
+    border: 1px solid gray;
+    width: 50%;
+    height: 30px;
+    font-size: 20px;
+    text-align: center;
+}
+
+#content_item{
+    width: 50%;
+    height: 300px;
+}
+
+button{
+    margin: 0 auto;
+}

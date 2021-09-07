@@ -1,0 +1,49 @@
+a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+}
+
+.post{
+    text-align: center;
+    padding: 0 14px;
+    font-size: 16px;
+    vertical-align: middle;
+    text-decoration: none;
+    width: 100%;
+}
+
+tr td{
+    font-size: 18px;
+    text-align: center;
+    
+}
+tr .title{
+    font-size: 18px;
+    font-weight: 400;
+    vertical-align: middle;
+    width: 100%;
+}
+.title a{
+    vertical-align: middle;
+    height: 100%;
+    width: 100%;
+}
+
+tr .writer{
+    text-align: center;
+    font-size: 16px;
+    width: 20%;
+}
+
+tr .writer::after{
+    content: '';
+}
+
+tr .regDate{
+    width: 20%;
+}
+
+tr .hitCount{
+    font-size: 16px;
+}

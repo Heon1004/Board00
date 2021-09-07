@@ -1,0 +1,100 @@
+.page-title {
+    margin-bottom: 60px;
+}
+.page-title h3 {
+    font-size: 28px;
+    color: #333333;
+    font-weight: 400;
+    text-align: center;
+}
+.board {
+    width: 60%;
+    margin: 0 auto;
+}
+.detail_box {
+    display: block;
+    width: 100%;
+}
+
+.title{
+    width: 100%;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.writer{
+    width: 50%;
+}
+
+.writer::after{
+    margin: 0 10px;
+    color: gray;
+    content: '|'
+}
+.regDate{
+    width: 50%;
+    display: inline;
+}
+
+.regDate::after{
+    margin: 0 10px;
+    color: gray;
+    content: '|'
+}
+
+.hit{
+    
+}
+
+.contents{
+    display: block;
+    width: 100%;
+    word-break: break-all;
+}
+
+.item_btn{
+    margin: 15px 0;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #d9d9d9;
+}
+
+.item_btn button {
+    background-color: white;
+    height: 30px;
+    font-size: 18px;
+    text-align: center;
+    outline: none;
+    cursor: pointer;
+    border: 1px solid gray;
+    border-radius: 20px;
+    padding: 0 10px;
+    margin: 0 15px;
+}
+
+.list_btn{
+    color: #333333;
+}
+
+.comment_btn{
+    background-color: white;
+    width: 100px;
+    height: 30px;
+    font-size: 18px;
+    text-align: center;
+    color: #333333;
+    outline: none;
+    cursor: pointer;
+    border: 1px solid gray;
+    border-radius: 20px;
+    margin: 0 20px;
+    padding: 0 10px;
+}
+
+.delete_btn{
+   color: red;
+   float: right;
+}
+
+.updata_btn{
+    float: right;
+}
