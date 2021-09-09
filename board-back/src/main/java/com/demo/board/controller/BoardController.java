@@ -2,6 +2,8 @@ package com.demo.board.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -28,10 +30,10 @@ public class BoardController {
 	
 	
 	@PostMapping("/write")
-	public void write(BoardVO boardVO) {
+	public void write(BoardVO boardVO,HttpServletRequest request) {
 		log.info("write board");
 		log.debug("TITLE = "+boardVO.getTitle()+"  CONTENT = "+boardVO.getContent()+"  WRITER ="+boardVO.getWriter());
-		boardService.write(boardVO);
+		boardService.write(boardVO,request);
 	}
 	
 	@PostMapping("/deletePost")

@@ -76,10 +76,10 @@ button[type=button] {
 }
 
 .msg{
-    width: 100px;
     margin: 0 auto;
     margin-top: 10px;
     text-align: center;
     color: red;
     font-size: 14px;
+    padding: 5px;
 }

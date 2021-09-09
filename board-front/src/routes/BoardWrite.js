@@ -1,11 +1,13 @@
-import React,{useEffect,useState} from 'react'
+import React,{useState} from 'react'
 import './BoardWrite.css';
 import axios from "axios";
 
 function BoardWrite({history,location}) {
-    const [board, setBoard] = useState(location.params);
-    const [title, setTitle] = useState(board != undefined ? board.title : '');
-    const [content, setContent] = useState(board != undefined ? board.content : '');
+    
+    const [board, setBoard] = useState(location.params ?? '');
+    const [title, setTitle] = useState(board.title ?? '');
+    const [content, setContent] = useState(board.content ?? '');
+
     const writePost = () => {
         setBoard({
             boardId: board.boardId,
@@ -14,12 +16,14 @@ function BoardWrite({history,location}) {
             writer: board.writer
         })
         try{
-            axios.post('/board/write', null, {
+            axios.post('/board/write', {
+                headers:{ 
+                    'Content-Type': 'application/json',
+            }}, {
                 params:{
                     title: title,
                     content: content,
                     writer: "testWriter",
-                    userId: 18
                 }
             })
             alert('投稿完了');
@@ -29,8 +33,6 @@ function BoardWrite({history,location}) {
         }
     }
 
-    console.log(board);
-    console.log('render');
     return (
         <div className="container">
             <div className="write_box">

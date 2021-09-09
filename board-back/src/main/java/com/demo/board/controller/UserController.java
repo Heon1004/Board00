@@ -32,9 +32,9 @@ public class UserController {
 	private final UserService userService;
 	
 	@PostMapping("/login")
-  	public String login(UserVO userVO) {
+  	public String login(UserVO userVO,HttpServletResponse response) {
 		log.info("USER LOGIN id : {} , pw : {} ", userVO.toString());
-		return userService.login(userVO);
+		return userService.login(userVO,response);
   	}
 	
     

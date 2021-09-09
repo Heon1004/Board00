@@ -8,7 +8,6 @@ import BoardWrite from './routes/BoardWrite';
 import Detail from './routes/Detail';
 
 function App() {
-
   return (
       <BrowserRouter >
         <Navigation />
@@ -21,7 +20,7 @@ function App() {
           </Switch>
           <Route path="/Login" component={LoginForm} />
           <Route path="/SingUp" component={SingUpForm} />
-          <Route path="/Detail:id" component={Detail} />
+          <Route path="/Detail" component={Detail} />
       </BrowserRouter >
   );
 }

@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import "./Posts.css";
 import "../routes/Detail.js";
 
-function Posts({boardId,title, writer, regDate, hitCount}) {
+function Posts({boardId,title, writer,content, regDate, hitCount,page}) {
+    
     return (
         <tbody>
             <tr key={boardId} className="post">
@@ -11,15 +12,17 @@ function Posts({boardId,title, writer, regDate, hitCount}) {
                 <Link
                     className="title"
                     to={{
-                        pathname: '/Detail'+boardId,
-                        // board: {
-                        //     board_id,
-                        //     title,
-                        //     content,
-                        //     writer,
-                        //     regDate,
-                        // }
-                    }}>
+                        pathname: "/Detail",
+                        state: {
+                            boardId,
+                            title,
+                            content,
+                            writer,
+                            regDate: regDate.slice(0,10),
+                            hitCount,
+                            page
+                        }}}
+                    >
                     {title.slice(0,25)}
                 </Link>
                     <td className="writer">{writer}</td>

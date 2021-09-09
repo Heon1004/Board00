@@ -4,7 +4,19 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import axios from "axios";
+import Cookies from 'universal-cookie';
+
 axios.defaults.withCredentials = true;
+const cookies = new Cookies();
+axios.interceptors.request.use(
+  config => {
+      config.headers.token = cookies.get('token');
+      return config;
+  },
+  error => {
+      return Promise.reject(error);
+  }
+)
 
 ReactDOM.render(
   <React.StrictMode>

@@ -2,6 +2,8 @@ package com.demo.board.service;
 
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import org.springframework.data.domain.Page;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.demo.board.entity.Board;
 import com.demo.board.repository.BoardRepository;
+import com.demo.board.security.JwtTokenProvider;
 import com.demo.board.vo.BoardVO;
 
 import lombok.RequiredArgsConstructor;
@@ -24,10 +27,13 @@ import lombok.extern.slf4j.Slf4j;
 public class BoardServiceImpl implements BoardService{
 	
 	private final BoardRepository repository;
+	private final JwtTokenProvider jwtProvider;
 	
 	@Override
 	@Transactional
-	public void write(BoardVO boardVO) {
+	public void write(BoardVO boardVO,HttpServletRequest request) {
+		String token = jwtProvider.resolveToken(request);
+		log.debug(jwtProvider.getUserPk(token)+"BOARD SERVICE WRITE !");
 		repository.save(boardVO.toEntity());
 	}
 

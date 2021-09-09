@@ -7,19 +7,18 @@ import Pagebtn from '../components/Pagebtn';
 
 function Board({match}) {
     const pageNow = useRef(1);
-    const userAuth = localStorage.getItem('auth');
-    console.log(localStorage);
     const [boards,setBoards] = useState({
         isLoading: true,
         list: [],
         total: '',
     });
-    console.log(match);
     
     const getBoards = async () => {
-        console.log(pageNow.current);
         try{
             await axios.get('/board/list',{
+                headers:{
+                    'Content-Type': 'application/json',
+                },
                 params:{
                     page:pageNow.current
                 }
@@ -29,19 +28,17 @@ function Board({match}) {
                     isLoading: false, 
                     total:res.data.totalPages,
                 });
-                console.log(res.data)
             });
         }catch(error){
             console.log(error);
         }
     };
 
+
     useEffect(() => {
-        console.log("useEffect Render");
-        pageNow.current = (typeof match.params.page == 'undefined' ? 1 : match.params.page);
+        pageNow.current = (match.params.page ?? 1);
         getBoards();
     }, [match]);
-    console.log("Board 렌더링")
     
     return (
         <div className="container">

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,20 +44,23 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 			log.info("email {} pass {} ",userVO.getUserEmail(),userVO.getUserPw());
 			userVO.setUserPw(encoder.encode(userVO.getUserPw()));
 			repository.save(userVO.toEntity());
-			User userReg = repository.findByUserEmail(userVO.getUserEmail());
-			return jwtProvider.createToken(String.valueOf(userReg.getUserEmail()), userReg.getRoles());
+			Optional<User> userReg = repository.findByUserEmail(userVO.getUserEmail());
+			return jwtProvider.createJwtAccessToken(String.valueOf(userReg.get().getUserEmail()), userReg.get().getRoles());
 	}
 
 	@Override
 	@Transactional
-	public String login(UserVO userVO) throws EmailLoginFailedCException{
+	public String login(UserVO userVO,HttpServletResponse res) throws EmailLoginFailedCException{
 		log.debug("------LOGIN SERVICE------");
-		User user = repository.findByUserEmail(userVO.getUserEmail());
+		Optional<User> user = repository.findByUserEmail(userVO.getUserEmail());
 		log.debug("REPOSITORY {}",user.toString());
-		if(!encoder.matches(userVO.getUserPw(), user.getUserPw())) {
-			throw new EmailLoginFailedCException();
+		if(!encoder.matches(userVO.getUserPw(), user.get().getUserPw())) {
+			return null;
 		}
-		return jwtProvider.createToken(String.valueOf(user.getUserEmail()), user.getRoles());
+		//리스폰스 헤더에 토큰을 추가함.예제로 잠깐 등록해봄
+		
+		res.addHeader("token", jwtProvider.createJwtAccessToken(String.valueOf(user.get().getUserId()), user.get().getRoles()));
+		return jwtProvider.createJwtAccessToken(String.valueOf(user.get().getUserId()), user.get().getRoles());
 	}
 
 	@Override

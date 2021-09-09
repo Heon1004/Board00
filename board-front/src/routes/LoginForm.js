@@ -1,6 +1,7 @@
 import React, {useState, } from 'react'
 import { Link, } from "react-router-dom";
 import './LoginForm.css';
+import Cookies from 'universal-cookie';
 import axios from "axios";
 
 
@@ -8,6 +9,8 @@ function LoginForm({history,dispatch}) {
     const [email,setEmail] = useState();
     const [pw,setPw] = useState();
     const [msg, setMsg] = useState('');
+    const cookies = new Cookies();
+
     function loginCheck(){
         const regId = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i
         //正規表現が正しい時trueを返す
@@ -21,18 +24,20 @@ function LoginForm({history,dispatch}) {
                     userEmail: email,
                     userPw: pw
                 }
-            }).then((response) => {
-                const { accessToken } = response.data;
-                console.log(response.data);
-                // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
-                axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-                // accessToken을 localStorage, cookie 등에 저장하지 않는다!
-                console.log({accessToken});
+            }).then((res) => {
+                console.log(res);
+                if(res.data !== ''){
+                    cookies.set('token',res.data);
+                    
+                }else{
+                    setMsg("パスワード又はメールをもう一度確認してください。");
+                }
             }) 
         }else{
             setMsg("Check to Email");
         }
     }
+
     return (
         <div className="container">
             <div className="page-title">
