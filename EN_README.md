@@ -24,17 +24,21 @@
   Http -> Security -> Jwt Filter -> response <br>
   
   ##### axios.get : How to send it to GET.
+  __axios.get(url,{ headers,params })__<br>
   
   await axios.get('/board/list',{<br>
                 headers:{<br>
                     'Content-Type': 'application/json',<br>
                 },<br>
                 params:{<br>
-                    page:pageNow.current<br>
+                    params:params <br>
                 }<br>
-  
+                
+ 
   
   ##### axios.post : How to send it to POST.
+  __axios.post(url,{headers},{params})__<br>
+  
   axios.post('/user/login',{<br>
                 headers: {<br>
                     'Content-Type': 'application/json',<br>
@@ -47,8 +51,12 @@
                 }<br>
   
   **index.js**
+  
+  
+  
   //Transferring cookies between different domains.<br>
   axios.defaults.withCredentials = true;<br>
+  
   const cookies = new Cookies();<br>
   axios.interceptors.request.use(<br>
     config => {<br>
@@ -59,6 +67,6 @@
         return Promise.reject(error);<br>
     }<br>
   )<br>
-  Now You don't have to keep sending tokens.<br>
+  now tokens automatically enter HttpRequest and request API.<br>
   
   
