@@ -23,19 +23,42 @@
   i want to know how to send JWT Token in Request<br>
   Http -> Security -> Jwt Filter -> response <br>
   
+  ##### axios.get : How to send it to GET.
+  
+  await axios.get('/board/list',{<br>
+                headers:{<br>
+                    'Content-Type': 'application/json',<br>
+                },<br>
+                params:{<br>
+                    page:pageNow.current<br>
+                }<br>
+  
+  
+  ##### axios.post : How to send it to POST.
+  axios.post('/user/login',{<br>
+                headers: {<br>
+                    'Content-Type': 'application/json',<br>
+                    'token' : cookie.get('token')<br>
+                } <br>
+            },{ <br>
+                params:{<br>
+                    userEmail: email,<br>
+                    userPw: pw<br>
+                }<br>
+  
   **index.js**
   //Transferring cookies between different domains.<br>
-  axios.defaults.withCredentials = true;
-  const cookies = new Cookies();
-  axios.interceptors.request.use(
-    config => {
-        config.headers.token = cookies.get('token');
-        return config;
-    },
-    error => {
-        return Promise.reject(error);
-    }
-  )
+  axios.defaults.withCredentials = true;<br>
+  const cookies = new Cookies();<br>
+  axios.interceptors.request.use(<br>
+    config => {<br>
+        config.headers.token = cookies.get('token');<br>
+        return config;<br>
+    },<br>
+    error => {<br>
+        return Promise.reject(error);<br>
+    }<br>
+  )<br>
   Now You don't have to keep sending tokens.<br>
   
   
