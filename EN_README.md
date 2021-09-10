@@ -27,12 +27,12 @@
   __axios.get(url,{ headers,params })__<br>
   
   await axios.get('/board/list',{<br>
-                headers:{<br>
-                    'Content-Type': 'application/json',<br>
-                },<br>
-                params:{<br>
-                    params:params <br>
-                }<br>
+  　　　　　　　headers:{<br>
+ 　　　　　　　　　'Content-Type': 'application/json',<br>
+　　　　　　　　},<br>
+　　　　　　　　params:{<br>
+　　　　　　　　　params:params <br>
+　　　　　　　　}<br>
                 
  
   
@@ -40,15 +40,15 @@
   __axios.post(url,{headers},{params})__<br>
   
   axios.post('/user/login',{<br>
-                headers: {<br>
-                    'Content-Type': 'application/json',<br>
-                    'token' : cookie.get('token')<br>
-                } <br>
-            },{ <br>
-                params:{<br>
-                    userEmail: email,<br>
-                    userPw: pw<br>
-                }<br>
+　　　　　　　　headers: {<br>
+　　　　　　　　　　'Content-Type': 'application/json',<br>
+　　　　　　　　　　'token' : cookie.get('token')<br>
+　　　　　　　　} <br>
+　　　　　　　},{ <br>
+　　　　　　　　params:{<br>
+　　　　　　　　　　userEmail: email,<br>
+　　　　　　　　　　userPw: pw<br>
+　　　　　　　　}<br>
   
   **index.js**
   
@@ -59,14 +59,14 @@
   
   const cookies = new Cookies();<br>
   axios.interceptors.request.use(<br>
-    config => {<br>
-        config.headers.token = cookies.get('token');<br>
-        return config;<br>
-    },<br>
-    error => {<br>
-        return Promise.reject(error);<br>
-    }<br>
-  )<br>
+　　config => {<br>
+　　　　config.headers.token = cookies.get('token');<br>
+　　　　return config;<br>
+　　},<br>
+　　 error => {<br>
+　　　　return Promise.reject(error);<br>
+　　}<br>
+　)<br>
   now tokens automatically enter HttpRequest and request API.<br>
   
   
