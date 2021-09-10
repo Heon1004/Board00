@@ -11,4 +11,4 @@
 
 Error : When i Create to Custom to JpaRepository Method. this Method is Static so can't change.<br>
 Fix : @Query(value="SELECT u FROM User AS u WHERE u.user_id = :user_id", <string>nativeQuery = true<string>)<br>
-  if use 
+  if use ': this
