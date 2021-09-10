@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import './BoardWrite.css';
 import axios from "axios";
-
+import Cookies from 'universal-cookie';
 function BoardWrite({history,location}) {
     
     const [board, setBoard] = useState(location.params ?? '');
@@ -9,12 +9,7 @@ function BoardWrite({history,location}) {
     const [content, setContent] = useState(board.content ?? '');
 
     const writePost = () => {
-        setBoard({
-            boardId: board.boardId,
-            content: content,
-            title: title,
-            writer: board.writer
-        })
+        const cookies = new Cookies();
         try{
             axios.post('/board/write', {
                 headers:{ 
@@ -23,11 +18,10 @@ function BoardWrite({history,location}) {
                 params:{
                     title: title,
                     content: content,
-                    writer: "testWriter",
                 }
             })
             alert('投稿完了');
-            history.push("/Board");
+            // history.push("/Board");
         }catch(error){
             console.log(error);
         }

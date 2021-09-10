@@ -14,7 +14,7 @@ function Detail({location,history}) {
                 }
             },{
                 params:{
-                    boardId:board.boardId
+                    board_id:board.board_id
             }
         }).then((res) => {
                 alert('削除完了');
@@ -43,9 +43,9 @@ function Detail({location,history}) {
                         <a href="#" className="comment_btn">Comment</a>
                         <button className="delete_btn" onClick={deletePost}>Delete</button>
                         <Link to={{
-                            pathname:'/Write'+board.boardId,
+                            pathname:'/Write'+board.board_id,
                             params:{
-                                boardId: board.boardId,
+                                board_id: board.board_id,
                                 title:board.title,
                                 content:board.content,
                                 writer:board.writer

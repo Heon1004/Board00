@@ -3,7 +3,9 @@ package com.demo.board.vo;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
+import com.demo.board.entity.Board;
 import com.demo.board.entity.User;
 
 import lombok.Builder;
@@ -21,6 +23,7 @@ public class UserVO {
 	private String userName;
 	private LocalDateTime regDate;
     private List<String> roles;
+    private int isAvailable;
 	
 	public User toEntity() {
 		return User.builder()
@@ -30,6 +33,7 @@ public class UserVO {
                 .userName(userName)
                 .roles(Collections.singletonList("ROLE_USER"))
                 .regDate(regDate)
+                .isAvailable(isAvailable)
                 .build();
 	}
 	
@@ -40,6 +44,7 @@ public class UserVO {
 		this.userName = user.getUserName();
 		this.roles = user.getRoles();
 		this.regDate = user.getRegDate();
+		this.isAvailable = user.getIsAvailable();
 	}
 
 	

@@ -7,9 +7,9 @@ spring:
   jpa:    show-sql: true
     hibernate:      ddl-auto: update          
 logging:  level:
-    root: debug
+    root: info
     web: debug
-    controller: debug
+    service: debug
     hibernate: debug
     sql: debug
     security: debug

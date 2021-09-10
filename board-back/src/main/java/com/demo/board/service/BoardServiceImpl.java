@@ -3,7 +3,6 @@ package com.demo.board.service;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import org.springframework.data.domain.Page;
@@ -14,7 +13,9 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 
 import com.demo.board.entity.Board;
+import com.demo.board.entity.User;
 import com.demo.board.repository.BoardRepository;
+import com.demo.board.repository.UserRepository;
 import com.demo.board.security.JwtTokenProvider;
 import com.demo.board.vo.BoardVO;
 
@@ -26,68 +27,48 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService{
 	
-	private final BoardRepository repository;
+	private final BoardRepository boardRepository;
 	private final JwtTokenProvider jwtProvider;
+	private final UserRepository userRepository;
 	
 	@Override
 	@Transactional
 	public void write(BoardVO boardVO,HttpServletRequest request) {
 		String token = jwtProvider.resolveToken(request);
-		log.debug(jwtProvider.getUserPk(token)+"BOARD SERVICE WRITE !");
-		repository.save(boardVO.toEntity());
+		Optional<User> user = userRepository.findById(Long.parseLong(jwtProvider.getUserPk(token)));
+		boardVO.setUser(user.get());
+		boardRepository.save(boardVO.toEntity());
 	}
 
 	@Override
 	@Transactional
 	public void deletePost(long boardId) {
-		repository.deleteById(boardId);
+		boardRepository.deleteById(boardId);
 	}
 
 	@Override
 	@Transactional
-	public Page<BoardVO> list(@PageableDefault(size = 10, sort = {
-			"boardId" }, direction = Sort.Direction.DESC) Pageable pageable) {
+	public Page<Board> list(@PageableDefault(size = 10, sort = {
+			"boardId" },direction = Sort.Direction.DESC) Pageable pageable) {
 		int page = (pageable.getPageNumber() == 0) ? 0 : pageable.getPageNumber()-1;
 		pageable = PageRequest.of(page, 10, Sort.by("boardId").descending());
-		Page<Board> boardlist = repository.findAll(pageable);
-		Page<BoardVO> paginglist = boardlist.map(
-				board -> new BoardVO(
-						board.getBoardId(),
-						board.getTitle(),
-						board.getContent(),
-						board.getWriter(),
-						board.getRegDate(),
-						board.getUpdateDate(),
-						board.getUserId(),
-						board.getHitCount()
-						)
-				);
-		return paginglist;
+		log.info(pageable.toString());
+		Page<Board> boardlist = boardRepository.findAll(pageable);
+		log.info(boardlist.toString());
+		return boardlist;
 	}
 
 	@Override
 	@Transactional
-	public BoardVO detail(long boardId) {
-		repository.findByHitCount(boardId);
-		Optional<Board> board = repository.findById(boardId);
-		BoardVO post = BoardVO.builder()
-				.boardId(board.get().getBoardId())
-				.title(board.get().getTitle())
-				.content(board.get().getContent())
-				.writer(board.get().getWriter())
-				.regDate(board.get().getRegDate())
-				.updateDate(board.get().getUpdateDate())
-				.userId(board.get().getUserId())
-				.hitCount(board.get().getHitCount())
-				.build();
-		return post;
+	public int updateHitCount(long boardId) {
+		return boardRepository.findByHitCount(boardId);
 	}
 
 	@Override
 	@Transactional
 	public Page<BoardVO> search(String keyword,
 			@PageableDefault(size=10,sort="boardId", direction = Sort.Direction.DESC) Pageable pageable) {
-		Page<Board> result = repository.findByTitleOrContentLike(keyword, pageable);
+		Page<Board> result = boardRepository.findByTitleOrContentLike(keyword, pageable);
 		Page<BoardVO> searchlist = result.map(
 				board -> new BoardVO(
 						board.getBoardId(),
@@ -96,8 +77,10 @@ public class BoardServiceImpl implements BoardService{
 						board.getWriter(),
 						board.getRegDate(),
 						board.getUpdateDate(),
-						board.getUserId(),
-						board.getHitCount()
+						board.getUser(),
+						board.getHitCount(),
+						board.getComment(),
+						board.getLikes()
 						)
 				);
 		return searchlist;
@@ -105,7 +88,7 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public Pageable update(Pageable pageable, BoardVO boardVO) {
-			repository.save(boardVO.toEntity());
+			boardRepository.save(boardVO.toEntity());
 		return pageable;
 	}
 

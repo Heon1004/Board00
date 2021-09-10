@@ -23,6 +23,7 @@ function Board({match}) {
                     page:pageNow.current
                 }
             }).then(res =>{
+                console.log(res.data);
                 setBoards({
                     list:res.data, 
                     isLoading: false, 
@@ -71,6 +72,7 @@ function Board({match}) {
                             writer={board.writer}
                             regDate={board.regDate}
                             hitCount={board.hitCount}
+                            likes={board.likes}
                             page={pageNow.current}
                             />
                         })}
@@ -85,7 +87,7 @@ function Board({match}) {
                         </ul>
                     </div>
                     <div className="write_btn">
-                        <Link to="/Write" className="link"><button type="button" >作成</button></Link>
+                        <Link to="/Write"  className="link"><button type="button" >作成</button></Link>
                     </div>
                 </div> 
             </div>

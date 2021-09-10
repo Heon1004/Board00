@@ -1,18 +1,16 @@
 package com.demo.board.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.demo.board.entity.Board;
 import com.demo.board.service.BoardService;
 import com.demo.board.vo.BoardVO;
 
@@ -43,13 +41,13 @@ public class BoardController {
 	}
 	
 	@GetMapping("/list")
-	public Page<BoardVO> getPage(Pageable pageable){
+	public Page<Board> getPage(Pageable pageable){
 		return boardService.list(pageable);
 	}
 	
-	@GetMapping("/detail")
-	public BoardVO detail(long boardId) {
-		return boardService.detail(boardId);
+	@PostMapping("/updateHitCount")
+	public int updateHitCount(long boardId) {
+		return boardService.updateHitCount(boardId);
 	}
 	
 	@GetMapping("/search")

@@ -10,7 +10,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +19,6 @@ import com.demo.board.repository.UserRepository;
 import com.demo.board.security.JwtTokenProvider;
 import com.demo.board.vo.UserVO;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -44,23 +42,21 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 			log.info("email {} pass {} ",userVO.getUserEmail(),userVO.getUserPw());
 			userVO.setUserPw(encoder.encode(userVO.getUserPw()));
 			repository.save(userVO.toEntity());
-			Optional<User> userReg = repository.findByUserEmail(userVO.getUserEmail());
-			return jwtProvider.createJwtAccessToken(String.valueOf(userReg.get().getUserEmail()), userReg.get().getRoles());
+			return "Sucess";
 	}
 
 	@Override
 	@Transactional
 	public String login(UserVO userVO,HttpServletResponse res) throws EmailLoginFailedCException{
 		log.debug("------LOGIN SERVICE------");
-		Optional<User> user = repository.findByUserEmail(userVO.getUserEmail());
+		User user = repository.findByUserEmail(userVO.getUserEmail());
 		log.debug("REPOSITORY {}",user.toString());
-		if(!encoder.matches(userVO.getUserPw(), user.get().getUserPw())) {
+		if(!encoder.matches(userVO.getUserPw(), user.getUserPw())) {
 			return null;
 		}
 		//리스폰스 헤더에 토큰을 추가함.예제로 잠깐 등록해봄
-		
-		res.addHeader("token", jwtProvider.createJwtAccessToken(String.valueOf(user.get().getUserId()), user.get().getRoles()));
-		return jwtProvider.createJwtAccessToken(String.valueOf(user.get().getUserId()), user.get().getRoles());
+		res.addHeader("token", jwtProvider.createJwtAccessToken(String.valueOf(user.getUserId()), user.getRoles()));
+		return jwtProvider.createJwtAccessToken(String.valueOf(user.getUserId()), user.getRoles());
 	}
 
 	@Override
@@ -76,6 +72,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 					.userName(num.getUserName())
 					.roles(num.getRoles())
 					.regDate(num.getRegDate())
+					.isAvailable(num.getIsAvailable())
 					.build();
 			users.add(dto);
 		});

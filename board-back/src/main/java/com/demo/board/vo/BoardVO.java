@@ -1,8 +1,10 @@
 package com.demo.board.vo;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import com.demo.board.entity.Board;
+import com.demo.board.entity.Comment;
 import com.demo.board.entity.User;
 
 import lombok.AllArgsConstructor;
@@ -22,19 +24,23 @@ public class BoardVO {
 	private String writer;
 	private LocalDateTime regDate;
 	private LocalDateTime updateDate; 
-	private long userId;
+	private User user;
 	private long hitCount;
+	private Set<Comment> comment;
+	private int likes;
 	
 	public Board toEntity() {
 		return Board.builder()
 				.boardId(boardId)
                 .title(title)
                 .content(content)
-                .writer(writer)
+                .writer(user.getUserName())
                 .regDate(regDate)
                 .updateDate(updateDate)
-                .userId(userId)
+                .user(user)
                 .hitCount(hitCount)
+                .comment(comment)
+                .likes(likes)
                 .build();
 	}
 	
@@ -46,8 +52,14 @@ public class BoardVO {
 				.writer(board.getWriter())
 				.regDate(board.getRegDate())
 				.updateDate(board.getUpdateDate())
-				.userId(userId)
+				.user(user)
 				.hitCount(hitCount)
+				.comment(board.getComment())
+				.likes(likes)
 				.build();
 	}
+	
+
+	
+	
 }

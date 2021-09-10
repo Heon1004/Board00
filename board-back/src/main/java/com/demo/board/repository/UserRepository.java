@@ -10,6 +10,6 @@ import com.demo.board.entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
 	
-	Optional<User> findByUserEmail(String email);
+	User findByUserEmail(String email);
 	User findByUserEmailAndUserPw(String email, String password);
 }
