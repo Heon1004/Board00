@@ -1,6 +1,6 @@
 # SpringBoot & React
 
-###댓글 기능 구현
+### 댓글 기능 구현
 
 댓글 리스트를 가져오는 시점에서 한가지 문제점을 발견
 **Entity**관계에서 Comment클래스에 User,Board를 그대로 가져오는것에서 발견됌.
