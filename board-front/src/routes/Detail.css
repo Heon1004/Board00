@@ -7,6 +7,13 @@
     width: 100%;
 }
 
+.itemheader{
+    width:100%;
+    display: block;
+    border-bottom: 1px solid #d9d9d9;
+    padding-bottom: 20px;
+}
+
 .title{
     width: 100%;
     font-size: 30px;
@@ -33,20 +40,27 @@
     content: '|'
 }
 
-.hit{
-    
+.hit::after{
+    margin: 0 10px;
+    color: gray;
+    content: '|'
 }
 
 .contents{
     display: block;
     width: 100%;
     word-break: break-all;
+    padding-top: 10px;
+    border-bottom: 1px solid #d9d9d9;
+    padding-bottom: 20px;
 }
 
 .item_btn{
-    margin: 15px 0;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #d9d9d9;
+    position: relative;
+}
+
+.item_btn a{
+    margin-right: 10px;
 }
 
 .item_btn button {
@@ -59,7 +73,8 @@
     border: 1px solid gray;
     border-radius: 20px;
     padding: 0 10px;
-    margin: 0 15px;
+    margin-right: 10px;
+    margin-top: 10px;
 }
 
 .list_btn{
@@ -77,15 +92,14 @@
     cursor: pointer;
     border: 1px solid gray;
     border-radius: 20px;
-    margin: 0 20px;
     padding: 0 10px;
 }
 
 .delete_btn{
-   color: red;
-   float: right;
-}
-
-.updata_btn{
+    color: red;
     float: right;
-}
+ }
+
+ .updata_btn{
+    float: right;
+ }

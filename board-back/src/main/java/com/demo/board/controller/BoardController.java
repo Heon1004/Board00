@@ -35,7 +35,7 @@ public class BoardController {
 	}
 	
 	@PostMapping("/deletePost")
-	public void deletePost(long boardId) {
+	public void deletePost(Long boardId) {
 		log.info("delete board");
 		boardService.deletePost(boardId);
 	}
@@ -46,7 +46,7 @@ public class BoardController {
 	}
 	
 	@PostMapping("/updateHitCount")
-	public int updateHitCount(long boardId) {
+	public int updateHitCount(Long boardId) {
 		return boardService.updateHitCount(boardId);
 	}
 	
@@ -62,8 +62,17 @@ public class BoardController {
 	
 	@PostMapping("/updatePost")
 	public Pageable update(Pageable pageable,BoardVO boardVO) {
+		log.info(boardVO.toString()+"컨트롤러 업데이트 맵핑");
 		return boardService.update(pageable, boardVO);
 	}
 	
+	@PostMapping("/updateLikes")
+	public int updateLikes(Long boardId) {
+		return boardService.updateLikes(boardId);
+	}
 	
+	@PostMapping("/detail")
+	public boolean isUser(Long boardId,HttpServletRequest request) {
+		return boardService.isUser(boardId, request);
+	}
 }

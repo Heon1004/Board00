@@ -4,55 +4,48 @@ import "./Board.css";
 import Posts from '../components/Posts';
 import { Link} from "react-router-dom";
 import Pagebtn from '../components/Pagebtn';
+import SearchPost from '../components/SearchPost';
 
-function Board({match}) {
+function Search({match,location,history}) {
     const pageNow = useRef(1);
-    const [boards,setBoards] = useState({
-        isLoading: true,
-        list: [],
-        total: '',
-    });
-    
-    const getBoards = async () => {
-        try{
-            await axios.get('/board/list',{
-                headers:{
-                    'Content-Type': 'application/json',
-                },
-                params:{
-                    page:pageNow.current
-                }
-            }).then(res =>{
-                console.log(res.data);
+    const [boards,setBoards] = useState();
+
+    function searchKeyword(){
+        try {
+            axios.get('/board/search',{
+                headers:{'Content-Type': 'application/json'},
+                params:{keyword:match.params.keyword}
+            }).then(result => {
                 setBoards({
-                    list:res.data, 
+                    list:result.data, 
                     isLoading: false, 
-                    total:res.data.totalPages,
+                    total:result.data.totalPages,
+                    searchTotal: result.data.totalElements
                 });
-            });
-        }catch(error){
+            }) 
+        } catch (error) {
             console.log(error);
         }
-    };
-
+    }
 
     useEffect(() => {
+        searchKeyword();
         pageNow.current = (match.params.page ?? 1);
-        getBoards();
     }, [match]);
     
     return (
         <div className="container">
-            {boards.isLoading ? (
+            {typeof boards == 'undefined' ? (
                 <div className="loader">
                 <span className="loader-text">Loading...</span>
             </div>
             ) : (
                 <div>
                 <div className="page-title">
-                    <h3>Board</h3>
+                    <h3>検索</h3>
                 </div>
                 <div id="board-list">
+                    <div className="search_result">検索結果 : {boards.searchTotal}</div>
                     <table>
                         <thead>
                             <tr>
@@ -61,6 +54,7 @@ function Board({match}) {
                                 <th className="header_writer">作成者</th>
                                 <th className="header_date">作成日</th>
                                 <th className="header_hit">ヒット</th>
+                                <th className="header_hit">Like</th>
                             </tr>
                         </thead>
                         {boards.list.content.map(board => {
@@ -71,6 +65,7 @@ function Board({match}) {
                             content={board.content}
                             writer={board.writer}
                             regDate={board.regDate}
+                            updateDate={board.updateDate}
                             hitCount={board.hitCount}
                             likes={board.likes}
                             page={pageNow.current}
@@ -86,6 +81,7 @@ function Board({match}) {
                             </Pagebtn>
                         </ul>
                     </div>
+                    <SearchPost history={history}/>
                     <div className="write_btn">
                         <Link to="/Write"  className="link"><button type="button" >作成</button></Link>
                     </div>
@@ -97,4 +93,4 @@ function Board({match}) {
 }
 
 
-export default Board
+export default Search

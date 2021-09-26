@@ -1,6 +1,7 @@
 package com.demo.board.vo;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Set;
 
 import com.demo.board.entity.Board;
@@ -24,9 +25,9 @@ public class BoardVO {
 	private String writer;
 	private LocalDateTime regDate;
 	private LocalDateTime updateDate; 
-	private User user;
+	private Long userId;
 	private long hitCount;
-	private Set<Comment> comment;
+	private int comments;
 	private int likes;
 	
 	public Board toEntity() {
@@ -34,30 +35,30 @@ public class BoardVO {
 				.boardId(boardId)
                 .title(title)
                 .content(content)
-                .writer(user.getUserName())
+                .writer(writer)
                 .regDate(regDate)
                 .updateDate(updateDate)
-                .user(user)
+                .userId(userId)
                 .hitCount(hitCount)
-                .comment(comment)
+                .comments(comments)
                 .likes(likes)
                 .build();
 	}
 	
-	public BoardVO boardBuild(Board board) {
-		return BoardVO.builder()
-				.boardId(board.getBoardId())
-				.title(board.getTitle())
-				.content(board.getContent())
-				.writer(board.getWriter())
-				.regDate(board.getRegDate())
-				.updateDate(board.getUpdateDate())
-				.user(user)
-				.hitCount(hitCount)
-				.comment(board.getComment())
-				.likes(likes)
-				.build();
-	}
+//	public BoardVO boardBuild(Board board) {
+//		return BoardVO.builder()
+//				.boardId(board.getBoardId())
+//				.title(board.getTitle())
+//				.content(board.getContent())
+//				.writer(board.getWriter())
+//				.regDate(board.getRegDate())
+//				.updateDate(board.getUpdateDate())
+//				.userId(userId)
+//				.hitCount(hitCount)
+//				.comment(board.getComment())
+//				.likes(likes)
+//				.build();
+//	}
 	
 
 	

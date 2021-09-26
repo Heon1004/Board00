@@ -1,27 +1,25 @@
-import React,{useState} from 'react'
+import React,{useRef} from 'react'
 import './BoardWrite.css';
 import axios from "axios";
-import Cookies from 'universal-cookie';
-function BoardWrite({history,location}) {
-    
-    const [board, setBoard] = useState(location.params ?? '');
-    const [title, setTitle] = useState(board.title ?? '');
-    const [content, setContent] = useState(board.content ?? '');
+
+function BoardWrite({history}) {
+    const title = useRef();
+    const content = useRef();
 
     const writePost = () => {
-        const cookies = new Cookies();
         try{
             axios.post('/board/write', {
                 headers:{ 
                     'Content-Type': 'application/json',
             }}, {
                 params:{
-                    title: title,
-                    content: content,
+                    title: title.current.value,
+                    content:content.current.value
                 }
             })
             alert('投稿完了');
-            // history.push("/Board");
+            history.push("/Board");
+            window.location.reload();
         }catch(error){
             console.log(error);
         }
@@ -38,16 +36,14 @@ function BoardWrite({history,location}) {
                     <input 
                         type="text" 
                         id="title_item" 
-                        value={title}
-                        onChange={(e) => {setTitle(e.target.value)}}
+                        ref={title}
                     />
                 </div>
                 <div className="content">
                     <label htmlFor="content_item" className="content_label">Content</label>
                     <textarea 
                         id="content_item"
-                        value={content}
-                        onChange={(e) => {setContent(e.target.value)}}
+                        ref={content}
                     />
                 </div>
             </div>

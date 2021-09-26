@@ -7,6 +7,7 @@ import axios from "axios";
 import Cookies from 'universal-cookie';
 
 axios.defaults.withCredentials = true;
+
 const cookies = new Cookies();
 axios.interceptors.request.use(
   config => {

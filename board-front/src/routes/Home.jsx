@@ -6,7 +6,7 @@ function Home() {
     let now = new Date();
     const week = ['日','月','火','水','木','金','土'];
     let days = week[now.getDay()];
-    let timer: any = null;
+    let timer = null;
   const [time, setTime] = useState(moment());
   useEffect(() => {
     timer = setInterval(() => {

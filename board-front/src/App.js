@@ -6,6 +6,9 @@ import Board from './routes/Board';
 import SingUpForm from './routes/SingUpForm';
 import BoardWrite from './routes/BoardWrite';
 import Detail from './routes/Detail';
+import EditPost from './routes/EditPost';
+import Logout from './routes/Logout';
+import Search from './routes/Search';
 
 function App() {
   return (
@@ -16,11 +19,13 @@ function App() {
             <Route path="/Board" component={Board} />
             <Route path="/Board:page" component={Board} />
             <Route path="/Write" component={BoardWrite} />
-            <Route path="/Write:id" component={BoardWrite} />
           </Switch>
+          <Route path="/EditPost:id" component={EditPost} />
           <Route path="/Login" component={LoginForm} />
           <Route path="/SingUp" component={SingUpForm} />
           <Route path="/Detail" component={Detail} />
+          <Route path="/Logout" component={Logout}/>
+          <Route path="/Search/:keyword" component={Search} />
       </BrowserRouter >
   );
 }

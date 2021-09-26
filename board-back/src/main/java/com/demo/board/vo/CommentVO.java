@@ -1,26 +1,42 @@
 package com.demo.board.vo;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import com.demo.board.entity.Board;
+import com.demo.board.entity.Comment;
 import com.demo.board.entity.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Setter
+@Getter
 @AllArgsConstructor
-@Data
+@NoArgsConstructor
 @Builder
 public class CommentVO {
-	private long commentId;
-	private String title;
+	private Long commentId;
+	private Long boardId;
+	private Long userId;
 	private String content;
-	private User user;
-	private Board board;
+	private String writer;
 	private int likes;
 	private LocalDateTime regDate;
 	private LocalDateTime updateDate; 
+	
+	public Comment toEntity() {
+		return Comment.builder()
+				.commentId(commentId)
+				.boardId(boardId)
+				.userId(userId)
+				.content(content)
+				.writer(writer)
+				.likes(likes)
+				.regDate(regDate)
+				.updateDate(updateDate)
+				.build();
+	}
 }

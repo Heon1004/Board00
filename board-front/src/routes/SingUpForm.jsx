@@ -21,16 +21,15 @@ function SingUpForm({history}) {
             }).then((response) => {
                 console.log(response);
                 if(response.data){
-                    alert('会員登録完了');
+                    alert(response.data);
                     history.push('/Login');
                 }else{
-                    setMsg("Failled Sing-Up");
+                    setMsg('既に存在しているメールアドレスです。');
                 }
-                
             }) 
             
         }else{
-            alert('正しいメールアドレスを入力してください。');
+            setMsg('正しいメールアドレスを入力してください。');
         }
     }
     return (

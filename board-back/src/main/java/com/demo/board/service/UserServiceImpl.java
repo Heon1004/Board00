@@ -2,16 +2,15 @@ package com.demo.board.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.demo.board.entity.User;
 import com.demo.board.exception.EmailLoginFailedCException;
@@ -42,12 +41,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 			log.info("email {} pass {} ",userVO.getUserEmail(),userVO.getUserPw());
 			userVO.setUserPw(encoder.encode(userVO.getUserPw()));
 			repository.save(userVO.toEntity());
-			return "Sucess";
+			return "会員登録完了しました。";
 	}
 
 	@Override
-	@Transactional
-	public String login(UserVO userVO,HttpServletResponse res) throws EmailLoginFailedCException{
+	@Transactional(readOnly = true)
+	public ArrayList<String> login(UserVO userVO,HttpServletResponse res) throws EmailLoginFailedCException{
 		log.debug("------LOGIN SERVICE------");
 		User user = repository.findByUserEmail(userVO.getUserEmail());
 		log.debug("REPOSITORY {}",user.toString());
@@ -56,11 +55,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		}
 		//리스폰스 헤더에 토큰을 추가함.예제로 잠깐 등록해봄
 		res.addHeader("token", jwtProvider.createJwtAccessToken(String.valueOf(user.getUserId()), user.getRoles()));
-		return jwtProvider.createJwtAccessToken(String.valueOf(user.getUserId()), user.getRoles());
+		ArrayList<String> result = new ArrayList<String>();
+		result.add(jwtProvider.createJwtAccessToken(String.valueOf(user.getUserId()), user.getRoles()));
+		result.add(user.getUserName());
+		return result;
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<UserVO> users() {
 		List<User> user = repository.findAll();
 		List<UserVO> users = new ArrayList<>();

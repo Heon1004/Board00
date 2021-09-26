@@ -24,7 +24,6 @@ function Pagebtn({total, page}) {
         }
         for(let i=startNum.current; i < endNum.current; i++){
             if(i > total){ break;}
-
             result.push(
                 <li key={i} className={(page == i ? 'page active' : 'page')}>
                     <Link 
@@ -53,7 +52,6 @@ function Pagebtn({total, page}) {
         return result;
     };
 
-    console.log("pagebtn 렌더링");
     return (
         <ul>
             {btn()}

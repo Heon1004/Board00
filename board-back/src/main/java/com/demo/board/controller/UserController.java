@@ -1,6 +1,6 @@
 package com.demo.board.controller;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,7 +31,7 @@ public class UserController {
 	private final UserService userService;
 	
 	@PostMapping("/login")
-  	public String login(UserVO userVO,HttpServletResponse response) {
+  	public ArrayList<String> login(UserVO userVO,HttpServletResponse response) {
 		log.info("USER LOGIN id : {} , pw : {} ", userVO.toString());
 		return userService.login(userVO,response);
   	}

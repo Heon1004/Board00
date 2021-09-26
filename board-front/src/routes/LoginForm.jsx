@@ -1,11 +1,11 @@
-import React, {useState, } from 'react'
+import React, { useState } from 'react'
 import { Link, } from "react-router-dom";
 import './LoginForm.css';
 import Cookies from 'universal-cookie';
 import axios from "axios";
 
 
-function LoginForm({history,dispatch}) {
+function LoginForm({history}) {
     const [email,setEmail] = useState();
     const [pw,setPw] = useState();
     const [msg, setMsg] = useState('');
@@ -25,16 +25,17 @@ function LoginForm({history,dispatch}) {
                     userPw: pw
                 }
             }).then((res) => {
-                console.log(res);
-                if(res.data !== ''){
-                    cookies.set('token',res.data);
-                    
+                if(typeof res.data != 'undefined'){
+                    cookies.set('token',res.data[0]);
+                    cookies.set('name', res.data[1]);
+                    history.push('/');
+                    window.location.reload();
                 }else{
                     setMsg("パスワード又はメールをもう一度確認してください。");
                 }
             }) 
         }else{
-            setMsg("Check to Email");
+            setMsg("正しくないメール形です。");
         }
     }
 
