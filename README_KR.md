@@ -21,13 +21,21 @@
   Error : : 쿼리에 값을 지정해주지 않아 파라미터를 찾지못하여 오류가 발생<br>
   Fix : void findById(**@Param("user_id")**userId) @Param을 설정해줌으로서 해결<br>
   
+#### Response의 불필요한 정보
+  게시글 리스트 혹은 댓글 리스트를 가져올때 관계매핑이 되어있는 userId를 저장하기위한 user객체에<br>
+  비밀번호 이외의 불필요한 개인정보들이 포함되어 Response되는게 확인되었다.<br>
+  로직에서 userId만 등록해도 다른 정보들이 Entity에 포함되어 정보가 누출된다.<br>
+  이러한 문제를 해결하기 위해<br>
+  Entity연관관계를 포기하고 userId만 등록하기로 했다.<br>
+  **(추가)** FK문제로 인하여 JPA로 연관관계를 매핑하는것을 포기하고<br>
+  데이터베이스에서 외래키를 추가하는것으로 우선 해결.
   
-## React Error
+## React
 
  Restful API를 사용하여 Jwt토큰을 리퀘스트에 넣어 보내는 방법.<br>
   (내가 생각한 로직) Http -> Security -> Jwt Filter -> response <br>
   
-  ##### Axios.GET
+  #### Axios.GET
   axios.get(url,params) (참고로 get메소드는 body가 없다)<br>
   __axios.get(url,{ headers,params })__<br>
   
@@ -42,7 +50,7 @@
                 
  
   
-  ##### Axios.POST
+  #### Axios.POST
   __axios.post(url,{headers},{params})__<br>
   
   예제
@@ -73,11 +81,3 @@
 　)<br>
   이렇게하여 리퀘스트를 요청할때마다 토큰을 넣어서 보낼필요가 없다<br>
 
-#### Response의 불필요한 정보
-게시글 리스트 혹은 댓글 리스트를 가져올때 관계매핑이 되어있는 userId를 저장하기위한 user객체에<br>
-비밀번호 이외의 불필요한 개인정보들이 포함되어 Response되는게 확인되었다.<br>
-로직에서 userId만 등록해도 다른 정보들이 Entity에 포함되어 정보가 누출된다.<br>
-이러한 문제를 해결하기 위해<br>
-Entity연관관계를 포기하고 userId만 등록하기로 했다.<br>
-**(추가)** FK문제로 인하여 JPA로 연관관계를 매핑하는것을 포기하고<br>
-데이터베이스에서 외래키를 추가하는것으로 우선 해결.
