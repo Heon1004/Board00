@@ -13,9 +13,9 @@ public interface BoardService {
 	void write(BoardVO boardVO,HttpServletRequest request);
 	void deletePost(Long boardId);
 	Page<Board> list(Pageable pageable);
-	int updateHitCount(Long boardId);
+	void updateHitCount(Long boardId);
 	Page<BoardVO> search(String keyword,Pageable pageable);
 	Pageable update(Pageable pageable,BoardVO boardVO);
 	int updateLikes(Long boardId);
-	boolean isUser(Long boardId,HttpServletRequest request);
+	boolean detail(Long boardId,HttpServletRequest request);
 }

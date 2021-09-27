@@ -29,6 +29,7 @@
 }
 
 #content_item{
+    outline: none;
     width: 50%;
     height: 300px;
 }

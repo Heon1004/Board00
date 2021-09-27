@@ -45,11 +45,6 @@ public class BoardController {
 		return boardService.list(pageable);
 	}
 	
-	@PostMapping("/updateHitCount")
-	public int updateHitCount(Long boardId) {
-		return boardService.updateHitCount(boardId);
-	}
-	
 	@GetMapping("/search")
 	public Page<BoardVO> search(String keyword,Pageable pageable) {
 		return boardService.search(keyword, pageable);
@@ -72,7 +67,8 @@ public class BoardController {
 	}
 	
 	@PostMapping("/detail")
-	public boolean isUser(Long boardId,HttpServletRequest request) {
-		return boardService.isUser(boardId, request);
+	public boolean detail(Long boardId,HttpServletRequest request) {
+		boardService.updateHitCount(boardId);
+		return boardService.detail(boardId, request);
 	}
 }

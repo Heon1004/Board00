@@ -1,0 +1,36 @@
+.comments{
+    position: relative;
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid #d9d9d9;
+}
+
+.comment_writer{
+    width: 30%;
+}
+
+.comment_regDate{
+    float: right;
+}
+
+.comment_content{
+    width: 50%;
+}
+
+.comment_likes{
+    
+}
+
+
+.edit_items{
+    display: flex;
+    float: right;
+}
+
+.comment_edit_btn{
+
+}
+
+.comment_delete_btn{
+
+}

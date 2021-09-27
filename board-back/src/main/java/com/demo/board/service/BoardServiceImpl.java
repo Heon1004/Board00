@@ -59,8 +59,8 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	@Transactional
-	public int updateHitCount(Long boardId) {
-		return boardRepository.updateHitCount(boardId);
+	public void updateHitCount(Long boardId) {
+		boardRepository.updateHitCount(boardId);
 	}
 
 	@Override
@@ -108,7 +108,7 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	@Transactional(readOnly = true)
-	public boolean isUser(Long boardId, HttpServletRequest request) {
+	public boolean detail(Long boardId, HttpServletRequest request) {
 		Optional<Board> board = boardRepository.findById(boardId);
 		String token = jwtProvider.resolveToken(request);
 		Optional<User> user = userRepository.findById(Long.parseLong(jwtProvider.getUserPk(token)));

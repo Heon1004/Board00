@@ -27,7 +27,7 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 			value="UPDATE Board AS b SET b.hit_count = hit_count + 1 WHERE b.board_id = :boardId",
 			nativeQuery = true
 	)
-	int updateHitCount(@Param("boardId")Long boardId);
+	void updateHitCount(@Param("boardId")Long boardId);
 	
 	/*
 		JPA 에서 조회를 실핼할 시에 1차 캐시를 확인해서 해당 엔티티가 1차 캐시에 존재한다면 데이터베이스에 접근하지 않고, 

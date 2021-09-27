@@ -35,7 +35,8 @@ function BoardWrite({history}) {
                     <label htmlFor="title_item" className="title_label">タイトル</label>
                     <input 
                         type="text" 
-                        id="title_item" 
+                        id="title_item"
+                        autoComplete="off"
                         ref={title}
                     />
                 </div>
@@ -43,6 +44,7 @@ function BoardWrite({history}) {
                     <label htmlFor="content_item" className="content_label">Content</label>
                     <textarea 
                         id="content_item"
+                        autoComplete="off"
                         ref={content}
                     />
                 </div>

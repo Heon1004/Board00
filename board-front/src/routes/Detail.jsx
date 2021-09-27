@@ -3,13 +3,17 @@ import './Detail.css';
 import axios from "axios";
 import Editbtn from "../components/Editbtn";
 import Likes from "../components/Likes";
+import Comments from "./Comments";
 
 function Detail({location,history}) {
     const [board] = useState(location.state ?? null);
-    const [comment, setComment] = useState();
     const [isUser, setIsUser] = useState({
         isLoading: true,
         edit: false
+    });
+    const [comment, setComment] = useState({
+        comments:[],
+        isLoading: true
     });
     
     const detailPost = () => {
@@ -38,7 +42,7 @@ function Detail({location,history}) {
                 headers:{'Content-Type': 'application/json'},
                 params:{boardId: board.boardId}
             }).then(res => {
-                console.log(res.data);
+                console.log(res);
                 setComment({
                     comments:res.data,
                     isLoading: false
@@ -48,6 +52,7 @@ function Detail({location,history}) {
             console.log(error);
         }
     }
+    
     useEffect(() => {
         detailPost();
         getComments();
@@ -86,19 +91,22 @@ function Detail({location,history}) {
                 <div className="contents">
                     {board.content}
                 </div>
-                <div className="comments">
-                    <div className="comment_item">
-                        <div className="comment_regDate">2022.22.22</div>
-                        <div className="comment_writer"></div>
-                        <div className="comment_content"></div>
-                        <div className="edit_items">
-                            <div className="comment_edit_btn"></div>
-                            <div className="comment_delete_btn"></div>
-                        </div>
-                    </div>
+                <div className="comment_write">
+                    comment
                 </div>
+                {comment.comments.map(comment => {
+                    return <Comments
+                        regDate={comment.regDate}
+                        writer={comment.writer}
+                        content={comment.content}
+                        updateDate={comment.updateDate}
+                        likes={comment.likes}
+                    >
+                    </Comments>
+                })}
             </div>
             )}
+           
         </div>
     )
 }
