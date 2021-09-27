@@ -31,10 +31,7 @@
   데이터베이스에서 외래키를 추가하는것으로 우선 해결.
   
 ## React
-
- Restful API를 사용하여 Jwt토큰을 리퀘스트에 넣어 보내는 방법.<br>
-  (내가 생각한 로직) Http -> Security -> Jwt Filter -> response <br>
-  
+기본적인 Axios의 GET,POST 사용법
   #### Axios.GET
   axios.get(url,params) (참고로 get메소드는 body가 없다)<br>
   __axios.get(url,{ headers,params })__<br>
